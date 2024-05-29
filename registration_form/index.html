@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Registration Form</h1>
+  <form id="registration-form">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" pattern="[A-Za-z]+" required>
+      <span id="name-error" class="error-message"></span>
+    </div>
+    <br>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span id="email-error" class="error-message"></span>
+      </div>
+      <br>
+
+
+    <div class="form-group">
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" minlength="11" maxlength="11" pattern="\d{11}" required>
+      <div class="error-message" id="phone-error"></div>
+    </div>
+    <br>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <span id="passwordMessage" class="error-message"></span>
+    </div>
+    <br>
+    <div>
+      <label for="repeatPassword">Repeat Password:</label>
+      <input type="password" id="repeatPassword" name="repeatPassword" required>
+      <span id="repeatPasswordMessage" class="error-message"></span>
+    </div>
+    <br>
+    <div>
+      <label for="faculty">Faculty:</label>
+      <select id="faculty" name="faculty" required>
+        <option value="">Select a faculty</option>
+        <option value="engineering">Engineering</option>
+        <option value="science">Science</option>
+        <option value="arts">Arts</option>
+      </select>
+    </div>
+    <br>
+    <button type="submit" id="submit-btn">Register</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('registration-form');
+      const nameInput = document.getElementById('name');
+      const phoneInput = document.getElementById('phone');
+      const passwordInput = document.getElementById('password');
+      const repeatPasswordInput = document.getElementById('repeatPassword');
+      const passwordMessageElement = document.getElementById('passwordMessage');
+      const repeatPasswordMessage = document.getElementById('repeatPasswordMessage');
+      const nameError = document.getElementById('name-error');
+      const phoneError = document.getElementById('phone-error');
+      const emailError = document.getElementById('email-error');
+
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+      function validateName() {
+        const name = nameInput.value.trim();
+        if (!/^[A-Za-z]+$/.test(name)) {
+          nameError.textContent = 'Name must contain only alphabetic characters.';
+          return false;
+        } else {
+          nameError.textContent = '';
+          return true;
+        }
+      }
+
+
+      function validateEmail() {
+        const email = emailInput.value.trim();
+        if (!emailRegex.test(email)) {
+          emailError.textContent = 'Email must be a valid Gmail address (ending with @gmail.com).';
+          return false;
+        } else {
+          emailError.textContent = '';
+          return true;
+        }
+      }
+
+
+      function validatePassword() {
+        const password = passwordInput.value.trim();
+        if (!passwordRegex.test(password)) {
+          passwordMessageElement.textContent = 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.';
+          return false;
+        } else {
+          passwordMessageElement.textContent = '';
+          return true;
+        }
+      }
+
+      function validateRepeatPassword() {
+        const repeatPassword = repeatPasswordInput.value.trim();
+        const password = passwordInput.value.trim();
+        if (password !== repeatPassword) {
+          repeatPasswordMessage.textContent = 'Passwords do not match.';
+          return false;
+        } else {
+          repeatPasswordMessage.textContent = '';
+          return true;
+        }
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        let isValid = true;
+
+        // Validate name
+        if (!validateName()) {
+          isValid = false;
+          nameInput.focus();
+        }
+
+        // Validate phone number
+        if (phoneInput.value.length !== 11 || !/^\d{11}$/.test(phoneInput.value)) {
+          phoneError.textContent = 'Please enter a valid 11-digit phone number.';
+          isValid = false;
+        } else {
+          phoneError.textContent = '';
+        }
+
+        // Validate password
+        if (!validatePassword()) {
+          isValid = false;
+        }
+
+        // Validate repeat password
+        if (!validateRepeatPassword()) {
+          isValid = false;
+        }
+
+        if (isValid) {
+          form.submit();
+        }
+      });
+
+      nameInput.addEventListener('input', validateName);
+      passwordInput.addEventListener('input', validatePassword);
+      repeatPasswordInput.addEventListener('input', validateRepeatPassword);
+    });
+  </script>
+</body>
+</html>

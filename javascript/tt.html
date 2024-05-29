@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Window Example</title>
+</head>
+<body>
+<input type="radio" id="greenRadio" name="colors" value="lightgreen">
+<label for="greenRadio">Green</label>
+<input type="radio" id="light-yellow" name="colors" value="lightyellow">
+<label for="light-yellow">Light Yellow</label>
+<input type="radio" id="pink" name="colors" value="pink">
+<label for="pink">Pink</label>
+<br>
+<button id="openWindowButton">Open Window</button>
+<button id="closeWindowButton" disabled>Close Window</button>
+
+<script>
+let newWindow = null;
+
+// Function to open the window
+function openWindow() {
+    let color;
+    if (document.getElementById('greenRadio').checked) {
+        color = 'lightgreen';
+    } else if (document.getElementById('light-yellow').checked) {
+        color = 'lightyellow';
+    } else if (document.getElementById('pink').checked) {
+        color = 'pink';
+    } else {
+        alert('Please select a color to open the window.');
+        return;
+    }
+
+    // Open a new window
+    newWindow = window.open('', '', 'width=600,height=400');
+
+    // Set the background color and write text to the new window's document
+    newWindow.document.write(`
+        <html>
+        <head>
+            <title>New Window</title>
+            <style>
+                body { background-color: ${color}; color: black; font-size: 24px; }
+            </style>
+        </head>
+        <body>
+            <p>This is the new window</p>
+        </body>
+        </html>
+    `);
+    newWindow.document.close();
+
+    // Focus on the new window
+    newWindow.focus();
+}
+
+// Event listener for opening the window
+document.getElementById('openWindowButton').addEventListener('click', openWindow);
+
+// Event listener for closing the window
+document.getElementById('closeWindowButton').addEventListener('click', function() {
+    if (newWindow && !newWindow.closed) {
+        newWindow.close();
+        document.getElementById('closeWindowButton').disabled = true;
+    }
+});
+</script>
+</body>
+</html>

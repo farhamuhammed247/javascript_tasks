@@ -1,0 +1,56 @@
+
+
+<!doctype html>
+<html>
+<head>
+    <title>Counter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="task3.js"></script>
+</head>
+<body>
+
+    <button id="startButton">Start count!</button>
+
+
+    <br>
+    <br>
+
+
+
+    <div class="button-container">
+        <button id="openWindowButton" onclick="openWindow()">Click to open</button>
+        <button id="closeWindowButton" onclick="closeWindow()" >Click to close</button>
+        <button id="closeButton" onclick="checked()">Is closed</button>
+      </div>
+
+      <br>
+
+      <script>
+        // Add a click event listener to the body
+        newWindow.document.body.addEventListener('click', function() {
+            // Check if the background color is light yellow
+            if (newWindow.document.body.style.backgroundColor === 'lightyellow') {
+                // Apply the blur effect
+                newWindow.blur();
+            } else {
+                // Reset the filter
+                newWindow.focus();
+            }
+        });
+    </script>
+<div class="radio-container">
+    <input type="radio" id="greenRadio" name="color" value="light-green" onclick="newWindow.focus()">
+    <label for="greenRadio">Light Green</label>
+
+    <input type="radio" id="light-yellow" name="color" value="light-yellow" >
+    <label for="light-yellow">Light Yellow</label>
+
+    <input type="radio" id="pink" name="color" value="pink"onclick="newWindow.focus()">
+    <label for="pink">Pink</label>
+
+    <script src="task3.js"></script>
+
+
+       </body>
+</html>

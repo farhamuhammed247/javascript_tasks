@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Page with jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="center-container">
+        <h1 class="text-center" style="font-size: 80px; text-decoration: underline;"><a><i>Learning English Letters</i></a></h1>
+        <h3 style="text-align: center; color: aqua; font-size: 30px; font-family: cursive;"><a>Enter your Number</a></h3>
+
+    
+    <div class="input-group">
+        <input type="text" id="numberInput" placeholder="Enter a number">
+        <button id="generateButton">Generate Characters</button>
+    </div>
+    <div id="characterDisplay"></div>
+  </div>
+
+
+  <script>
+    $(document).ready(function() {
+    var images = ['A.png', 'B.jpg', 'C.png', 'D.png', 'E.jpg', 'F.png', 'G.png', 'H.png', 'I.png', 'J.png', 'K.jpg', 'L.png', 'M.jpg', 'N.jpg', 'O.jpg', 'P.png', 'Q.jpg', 'R.jpg', 'S.jpg', 'T.png', 'U.png', 'V.png', 'W.png', 'X.png', 'Y.png', 'Z.png']; // Add image URLs to the array
+    
+    var currentCharacter = null; // Variable to store the current character
+    
+    $('#generateButton').click(function() {
+        var input = $('#numberInput').val();
+        if (!isNaN(input) && input >= 1 && input <= 26) {
+            var characters = generateRandomCharacters(parseInt(input));
+            displayCharacters(characters);
+            $('#numberInput').val(''); // Clear input
+        } else if (input.length === 1) {
+            var character = input.toUpperCase(); // Convert to uppercase
+            displayCharacterImage(character);
+            $('#numberInput').val(''); // Clear input
+        } else {
+            alert('Please enter a number between 1 and 26 or a single character');
+        }
+    });
+    
+    function generateRandomCharacters(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+    
+    function displayCharacters(characters) {
+        $('#characterDisplay').empty(); // Clear previous characters
+        for (var i = 0; i < characters.length; i++) {
+            var character = characters.charAt(i);
+            var $button = $(<button class="characterButton" data-character="${character}">${character}</button>);
+            $button.hover(
+                function() {
+                    $(this).css('background-color', 'lightgray');
+                },
+                function() {
+                    $(this).css('background-color', 'transparent');
+                }
+            );
+            $('#characterDisplay').append($button);
+        }
+    }
+
+    function displayCharacterImage(character) {
+        var index = character.charCodeAt(0) - 65; // Assuming images are mapped to letters from A to Z (uppercase)
+        if (index >= 0 && index < images.length) {
+            var imageUrl = images[index];
+           
+            // Create an image element
+            var $image = $('<img>').attr('src', imageUrl).attr('alt', character + ' image');
+            // Create a button element
+            var $button = $(<button class="characterButton" data-character="${character}">${character}</button>);
+            $button.hover(
+                function() {
+                    $(this).css('background-color', 'lightgray');
+                },
+                function() {
+                    $(this).css('background-color', 'transparent');
+                }
+            );
+            // Append the image and button to the characterDisplay div
+            $('#characterDisplay').append($image);
+        }
+    }
+    
+    // Event delegation to handle click on dynamically generated character elements
+    $(document).on('click', '.characterButton', function() {
+        var character = $(this).data('character');
+        if (character === currentCharacter) {
+            return; // If the same character is clicked again, do nothing
+        }
+        currentCharacter = character; // Update the current character
+        
+        displayCharacterImage(character);
+    });
+});
+</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

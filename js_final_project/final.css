@@ -1,0 +1,71 @@
+body {
+    background-image: url('images.jfif');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    
+  }
+
+  .container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  #numberInput {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  #numberInput:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  }
+
+  #generateButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  #generateButton:hover {
+    background-color: #45a049;
+  }
+
+  #characterOutput {
+    margin-top: 20px;
+  }
+
+  .character-image {
+    width: 90px;  /* Adjust the width as needed */
+    height: 90px; /* Adjust the height as needed */
+    margin-left: 10px; /* Space between the button and the image */
+}
+
+#controls {
+    margin-bottom: 20px; /* Space between controls and character output */
+}
+
+button.character {
+    margin: 5px; /* Space between character buttons */
+}
